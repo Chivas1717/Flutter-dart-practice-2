@@ -44,7 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
             Center(
               child: Column(children: [
-                const ShowingGreeting(),
+                const SizedBox(height: 40),
+                const ShowingStatus(),
                 const SizedBox(
                   height: 180,
                 ),

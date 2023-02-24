@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ShowingGreeting extends StatefulWidget {
-  const ShowingGreeting({super.key});
+class ShowingStatus extends StatefulWidget {
+  const ShowingStatus({super.key});
 
   @override
-  State<ShowingGreeting> createState() => _ShowingGreetingState();
+  State<ShowingStatus> createState() => _ShowingStatusState();
 }
 
-class _ShowingGreetingState extends State<ShowingGreeting> {
+class _ShowingStatusState extends State<ShowingStatus> {
   final Student student = Student('Mark', 'Hudzovskyi', DateTime(2004, 17, 10));
   void _changeStatus() {
     if (student.status == true) {
@@ -27,7 +27,6 @@ class _ShowingGreetingState extends State<ShowingGreeting> {
         child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const SizedBox(height: 100),
         Text(
             '${student.fullName} is ${student.status ? 'subscribed' : 'not subscribed'}'),
         ElevatedButton.icon(
@@ -57,12 +56,4 @@ class Student {
   set status(bool s) {
     _status = s;
   }
-
-  // set firstName(String firstName) {
-  //   _firstName = firstName;
-  // }
-
-  // set secondName(String firstName) {
-  //   _firstName = firstName;
-  // }
 }
