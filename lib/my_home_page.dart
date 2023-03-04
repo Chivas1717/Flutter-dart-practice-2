@@ -43,55 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Image.asset('assets/imgs/bg.png', fit: BoxFit.cover),
             )),
             Center(
-              child: Column(children: [
-                const SizedBox(height: 40),
-                const ShowingStatus(),
-                // const SizedBox(
-                //   height: 180,
-                // ),
-                // const Text(
-                //   'You have liked empat this many times:',
-                //   style: TextStyle(color: Colors.green, fontSize: 20),
-                // ),
-                // Text(
-                //   '$_counter',
-                //   style: Theme.of(context).textTheme.headlineMedium,
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                //     ElevatedButton(
-                //       onPressed: () {
-                //         _decrementCounter();
-                //         ScaffoldMessenger.of(context)
-                //             .showMaterialBanner(MaterialBanner(
-                //           content: const Text('Чому так?'),
-                //           actions: <Widget>[
-                //             TextButton(
-                //                 onPressed: () {
-                //                   ScaffoldMessenger.of(context)
-                //                       .hideCurrentMaterialBanner();
-                //                 },
-                //                 child: const Text('Закрити'))
-                //           ],
-                //           padding: const EdgeInsets.all(15),
-                //         ));
-                //       },
-                //       style:
-                //           ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                //       child: const Icon(Icons.thumb_down),
-                //     ),
-                //     ElevatedButton(
-                //       onPressed: _incrementCounter,
-                //       style: ElevatedButton.styleFrom(
-                //           backgroundColor: Colors.green),
-                //       child: const Icon(Icons.thumb_up),
-                //     ),
-                //   ],
-                // )
+              child: Column(children: const [
+                SizedBox(height: 40),
+                ShowingStatus(),
               ]),
             )
           ],
