@@ -8,30 +8,42 @@ class ShowingStatus extends StatefulWidget {
 }
 
 class _ShowingStatusState extends State<ShowingStatus> {
-  // final Student student =
-  //     Student('Markjiggbgibjhn', 'Hudzovskyi', DateTime(2004, 17, 10));
-  var student = Person.student('James', 'Bond') as Student;
-  // student.makeToDoListDaily(true);
+  var student = Person.student('Mark', 'Hudzovskyi') as Student;
 
-  void createToDo() {
+  void _createToDo() {
     if (student.todo == null) {
-      student.makeToDoListDaily(true);
-      student.todo!.addTodo('homework', 'English');
-      student.todo!.addTodo('exercise', 'push ups');
-      student.todo!.addTodo('homework', 'Math');
+      setState(() {
+        student.makeToDoListDaily(true);
+        student.todo!.addTodo('homework', 'English');
+        student.todo!.addTodo('exercise', 'push ups');
+        student.todo!.addTodo('homework', 'Math');
+        student.todo!.addTodo('homework', 'French');
+        student.todo!.addTodo('exercise', 'pull ups');
+        student.todo!.addTodo('Work', 'finish report');
+        student.todo!.addTodo('Work', 'call my boos');
+        student.todo!.removeTodo('homework', 'French');
+        // student.todo!.addTodo('homework', '${student.todo.runtimeType}');
+      });
+    }
+  }
+
+  void _deleteToDo() {
+    if (student.todo != null) {
+      setState(() {
+        student.deleteToDoList();
+      });
     }
   }
 
   void _changeStatus() {
+    assert(student.status is bool);
     if (student.status == true) {
       setState(() {
         student.status = false;
-        student.deleteToDoList();
       });
     } else {
       setState(() {
         student.status = true;
-        createToDo();
       });
     }
   }
@@ -55,16 +67,39 @@ class _ShowingStatusState extends State<ShowingStatus> {
             ),
           ],
         ),
-        const Text('TODO LIST'),
+        Text('${student.fullName} ${student.playVideoGame()}'),
         const SizedBox(
-          height: 20,
+          height: 120,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(student.todo?.day ?? "TODO LIST IS EMPTY"),
-            if (student.todo != null) const Text('data')
+            ElevatedButton.icon(
+              onPressed: _createToDo,
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              icon: const Icon(Icons.add),
+              label: const Text('Create'),
+            ),
+            ElevatedButton.icon(
+              onPressed: _deleteToDo,
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              icon: const Icon(Icons.cancel_outlined),
+              label: const Text('Delete'),
+            ),
           ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Text('TODO LIST'),
+        const SizedBox(
+          height: 15,
+        ),
+        Text(student.todo?.day ?? "TODO LIST IS EMPTY"),
+        if (student.todo != null)
+          Text('List has ${student.todo!.totalCount} tasks to do'),
+        const SizedBox(
+          height: 120,
         ),
         if (student.todo != null) student.todo!.showToDoList()
       ],
@@ -85,12 +120,16 @@ class Person {
   }
 
   String get fullName => '$firstName $secondName';
-
-  // dynamic get todo => {};
-  // void makeToDoListDaily(bool temp) {}
 }
 
-class Student extends Person {
+class Gamer {
+  String topGame = 'CS-GO';
+  String playVideoGame() {
+    return 'is playing $topGame';
+  }
+}
+
+class Student extends Person with Gamer {
   late bool _status = true;
   ToDoList? todoList;
 
@@ -98,14 +137,12 @@ class Student extends Person {
       : super(firstName, secondName);
 
   bool get status => _status;
-  // @override
   ToDoList? get todo => todoList;
 
   set status(bool s) {
     _status = s;
   }
 
-  // @override
   void makeToDoListDaily(bool isDaily) {
     if (isDaily) {
       todoList = ToDoList('Monday', {});
@@ -135,6 +172,10 @@ class ToDoList {
     tasksTotalCount(todo.split(', ').length);
   }
 
+  void removeTodo(title, todo) {
+    items[title].remove(todo);
+  }
+
   Container showToDoList() {
     var keys = todos.keys.toList();
     return Container(
@@ -144,25 +185,19 @@ class ToDoList {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              Text(keys[index]),
+              Text(
+                'Category: ${keys[index]}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               Text(todos[keys[index]].join('\n')),
+              const SizedBox(
+                height: 30,
+              ),
             ],
           );
         },
       ),
     );
-
-    // return Column(
-    //   children: [
-    //     Text('${day ?? 'This'} list has $totalCount tasks to do'),
-    //     todos.map((k, list) => Column(
-    //           children: [
-    //             Text('Category: $k'),
-    //             Text('Tasks: ${list.join(', ')} \n')
-    //           ],
-    //         )),
-    //   ],
-    // );
   }
 }
 
